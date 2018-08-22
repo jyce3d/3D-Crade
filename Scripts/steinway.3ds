@@ -1,0 +1,247 @@
+// Script définissant un Piano Steinway
+// by Jyce (Sept, 2004)
+
+// paramètres de la scène
+
+let (_azimutheye,pi)
+let (_colatiteye,pi/2)
+let (_scale,500)
+
+set (color,float)
+let (color,15)
+
+//
+// Vue de Gauche
+//
+
+// Definition des arcs et positionnement de la face de gauche
+_arc(0,0,0,0.150894,0.150894,10,0.2618,-1.5010,color,"_default","arcA1Fbot")
+translate(0.030188,0.3332,0,"arcA1Fbot")
+_arc(0,0,0,0.05387,0.05387,2,1.6581,2.5656,color,"_default","arcB1Fbot")
+translate(0.045282,0.1290,0,"arcB1Fbot")
+
+_arc(0,0,0,0.060724,0.060724,10,pi/2,pi,color,"_default","arcC1Fbot")
+translate(0.578594,0.0884,0,"arcC1Fbot")
+translate(0,-0.0544,0,"arcC1Fbot")
+
+// Extrusion
+
+_extrudex("arcC1Fbot",0,4,1,"sfC1Fbot")
+_extrudex("arcB1Fbot",1.3578125,4,1,"sfB1Fbot")
+_extrudex("arcA1Fbot",1.3578125,4,1,"sfA1Fbot")
+
+// MayeFrameBox
+_framebox(0.67890625,0.126532620455521,0,0.67890625,-0.031808620455521,0,5,0,color,"_default",0,"plF1bot")
+_Framebox(0.5909360561385,0.405157602802923,0,0.5909360561385,0.03290327258065,0,3,0,color,"_default",0,"plF2bot")
+translate(0.175940387723,0,0,"plF2bot")
+// Rotation autours de X
+RotateX(pi/2,"sfC1Fbot")
+RotateX(pi/2,"sfB1Fbot")
+RotateX(pi/2,"sfA1Fbot")
+RotateX(pi/2,"plF1bot")
+RotateX(pi/2,"plF2bot")
+//-----
+// Extrusion pour la face du top
+_extrudex("arcC1Fbot",0,2,1,"sfC1Ftop")
+_extrudex("arcB1Fbot",0.578594,2,1,"sfB1Ftop")
+_extrudex("arcA1Fbot",0.578594,2,1,"sfA1Ftop")
+// MayeFrameBox
+_framebox(0.289297,0.126532620455521,0,0.289297,-0.031808620455521,0,3,0,color,"_default",0,"plF1top")
+_Framebox(0.2013268061385,0.405157602802923,0,0.2013268061385,0.03218245,0,2,0,color,"_default",0,"plF2top")
+translate(0.175940387723,0,0,"plF2top")
+// Rotation autours de X
+RotateX(pi/2,"sfC1Ftop")
+RotateX(pi/2,"sfB1Ftop")
+RotateX(pi/2,"sfA1Ftop")
+RotateX(pi/2,"plF1top")
+RotateX(pi/2,"plF2top")
+// Translate
+Translate(0,1.50,0,"sfC1Ftop")
+Translate(0,1.50,0,"sfB1Ftop")
+Translate(0,1.50,0,"sfA1Ftop")
+Translate(0,1.50,0,"plF1top")
+Translate(0,1.50,0,"plF2top")
+
+//
+// Vue du dessus
+//
+set (cz,float)
+set (height,float)
+let (cz,0.0939763900000)
+let (height,0.4380608753836)
+
+_arc(0.578594,1.43334,cz,0.125781,0.06666,5,pi/2,0,color,"_default","arcB1up")
+_arc(1.3578125,1.433334,cz,0.6534375,0.40,7,-pi,-pi/2,color,"_default","arcA1up")
+_arc(1.3578125,0.766676,cz,0.2521875,0.26664,5,0,pi/2,color,"_default","arcC1up")
+_arc(1.3578125,0.266676,cz,0.2521875,0.266676,5,-pi/2,0,color,"_default","arcD1up")
+// Extrusion en X 
+// !!!Cette partie peut-être supprimée puisque dans 99% des cas le piano ne sera jamais regardé d'en dessous !!!
+// !!!Toutefois il vaut mieux conserver ces lignes, au cas où !!!!
+_extrudex("arcB1up",0.578594,2,1,"sfB1up_x")
+_extrudex("arcA1up",0.578594,3,1,"sfA1up_x")
+_extrudex("arcC1up",0.578594,3,1,"sfC1up_x")
+_extrudex("arcD1up",0.578594,3,1,"sfD1up_x")
+_framebox(1.094297,0.516676,0.09397639,-0.515703,-0.25,0,5,0,color,"_default",0,"plF1up")
+
+// Extrusion en Z
+_extrudez("arcB1up",height,4,1,"sfB1up_z")
+_extrudez("arcA1up",height,4,1,"sfA1up_z")
+_extrudez("arcC1up",height,4,1,"sfC1up_z")
+_extrudez("arcD1up",height,4,1,"sfD1up_z")
+_framebox(1.61,0.516676,0.2660186326918,0,0.25,-0.1720422426918,0,5,color,"_default",0,"plF1up_z")
+
+// Fond de caisse
+_framebox(0.258935,0.75,0.0340000000000002,-0.258935,0.75,0,5,0,color,"_default",0,"plF1bot_up")
+// Haut de caisse
+_framebox(0.3772671938615,0.75,0.438060875383573,0.2013268061385,0.75,0,5,0,color,"_default",0,"plF1top_up")
+// Couvercle
+block("Cover")
+ translate(0,0,0.3440844853836,"arcB1up")
+ _extrudex("arcB1up",0.578594,2,1,"sfB2up_x")
+ translate(0,0,0.3440844853836,"arcA1up")
+ _extrudex("arcA1up",0.578594,3,1,"sfA2up_x")
+ translate(0,0,0.3440844853836,"arcC1up")
+ _extrudex("arcC1up",0.578594,3,1,"sfC2up_x")
+ translate(0,0,0.3440844853836,"arcD1up")
+ _extrudex("arcD1up",0.578594,3,1,"sfD2up_x")
+ _framebox(1.094297,0.516676,0.4380608753836,-0.515703,-0.25,0,5,0,color,"_default",0,"plF2up")
+blend
+
+// ajouter les faces adjacentes aux claviers (côté gauche-droit et arrière du clavier)
+// Supprimer les arcs inutiles
+
+remove("arcB1up")
+remove("arcA1up")
+remove("arcC1up")
+remove("arcD1up")
+
+//
+// vue de face
+//
+//plf2zmax=0.438060875383573    --- plf2xmin=0.175940387723
+//arca1zmax=0.372254330221443   --- arca1xmax=0.180530541730941
+//arcB1zmax=0.182664833642285
+//plf1botZmax=0.158341240911042
+//c1maxz=0.094724
+//c1minz=0.034
+rotatex(pi/2,"arcC1Fbot")
+_extrudey("arcC1Fbot",1.50,5,1,"sfC1face")
+
+rotatex(pi/2,"arcA1Fbot")
+_extrudey("arcA1Fbot",0.05,2,0,"sfA1face")
+translate(0,1.45,0,"arcA1Fbot")
+_extrudey("arcA1Fbot",0.05,2,0,"sfA2face")
+
+rotatex(pi/2,"arcB1Fbot")
+_extrudey("arcB1Fbot",0.05,2,0,"sfB1face")
+translate(0,1.45,0,"arcB1Fbot")
+_extrudey("arcB1Fbot",0.05,2,0,"sfB2face")
+
+_framebox(0.175940387723,0.75,0.405157602802508,0,0.75,-0.032903272581065,0,5,color,"_default",0,"plF1face")
+_framebox(0.180530541730941,0.75,0.265297785566243,0,0.7,-0.106956544655201,0,5,color,"_default",0,"plF2face")
+
+// Clavier
+set (cp,float)
+set (y_key,float)
+set (ebonperiod,float)
+set (zkey_tr,float)
+set (xkey_tr,float)
+set (ykey_tr,float)
+
+// give your values to translate the keyboard where you from the origin
+
+let (xkey_tr,0)
+let (zkey_tr,0.128341240911042+0.015)
+let (ykey_tr,0.178)
+// Ivory
+let (y_key,0.011+ykey_tr)
+let (cp,1)
+while (cp<53)
+ _framebox(0.075+xkey_tr,y_key,0.01+zkey_tr,0.075,0.011,0.01,1,1,0,"_default",0,"ivorykey" # cp)
+ let (y_key,y_key+0.022)
+ let (cp,cp+1)
+wend
+// Ebony
+
+// first
+_framebox(0.10+xkey_tr,1.122+ykey_tr,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey1")
+
+let (y_key,1.078+ykey_tr)
+let (cp,2)
+let (ebonperiod,1)
+while (ebonperiod<8)
+ _framebox(0.10+xkey_tr,y_key,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey" # cp)
+ let (cp,cp+1)
+ let (y_key,y_key-0.022)
+ _framebox(0.10+xkey_tr,y_key,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey" # cp)
+ let (cp,cp+1)
+ let (y_key,y_key-0.044)
+ _framebox(0.10+xkey_tr,y_key,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey" # cp)
+ let (cp,cp+1)
+ let (y_key,y_key-0.022)
+ _framebox(0.10+xkey_tr,y_key,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey" # cp)
+ let (cp,cp+1)
+ let (y_key,y_key-0.022)
+ _framebox(0.10+xkey_tr,y_key,0.025+zkey_tr,0.05,0.0050,0.005,1,1,8,"_default",0,"ebonykey" # cp)
+ let (y_key,y_key-0.044)
+ let (cp,cp+1)
+ let (ebonperiod,ebonperiod+1)
+wend
+
+// ajout des faces
+_framebox(0,0.089,0.126532620455521,0,0.089,0.031808620455521,0,2,color,"_default",0,"plF3face")
+_framebox(0,1.411,0.126532620455521,0,-0.089,0.031808620455521,0,2,color,"_default",0,"plF4face")
+_framebox(0,0.75,0.111532620455521,0,0.572,0.016808620455521,0,3,color,"_default",0,"plF5face")
+
+// Fonds de caisse final
+_framebox(0.258935,0.75,0.017,0.258935,0.75,0.017,3,3,color,"_default",0,"plBox1face")
+
+// Suppression des arcs inutiles
+Remove("arcA1Fbot")
+Remove("arcB1Fbot")
+Remove("arcC1Fbot")
+
+//
+// pieds du piano
+//
+
+//radx=0.14861538
+//radz=0.06580645
+//czarc=-0.09870968
+//cxarc=0.14861538
+// longueur framebox.x=0.387999991
+block("Blockpod1")
+ _framebox(0.2683076855,0.0925,-0.01645161290325,0.1196923055,0.0625,-0.01645161290325,2,2,color,"_default",0,"plBox1pod")
+
+ _arc(0.14861538,-0.09870968,0,0.14861538/2,0.06580645,3,0,pi/2,color,"_default","arcpod1")
+ rotatex(pi/2,"arcpod1")
+ translate(0,0.03,0,"arcpod1")
+ _arc(0.40445160390325,-0.09870968,0,0.14861538/2,0.06580645,3,pi/2,pi,color,"_default","arcpod2")
+ rotatex(pi/2,"arcpod2")
+ translate(0,0.03,0,"arcpod2")
+ _extrudex("arcpod1",0.276533491951625,2,1,"sfpod1_x")
+ _extrudex("arcpod2",0.276533491951625,2,1,"sfpod2_x")
+ _extrudey("arcpod1",0.125,2,0,"sfpod1_y")
+ _extrudey("arcpod2",0.125,2,0,"sfpod2_y")
+
+//radiusx:0.053610421951625
+//radiusy:6.25
+ _cylinder(0.276533491951625,0.0925,-0.493548389678,0.053610421951625,0.0625,0.394838709678,5,5,color,"_default",0,"cylpod1")
+ _cylinder(0.276533491951625,0.0925,-0.629677421938,0.053610421951625,0.0625,0.13612903226,5,5,color,"_default",0,"cylpod2")
+ remove("arcpod1")
+ remove("arcpod2")
+blend
+// 2ème pied
+
+copy("Blockpod1","Blockpod2")
+translate(0,1.5-0.181941032268447,0,"Blockpod2")
+
+// 3ème pied : en x:1.38359375+0.053610421951625
+
+copy("Blockpod1","Blockpod3")
+translate(1.38359375-0.40,0.516676-0.0625,0,"Blockpod3")
+
+// Ouverture du piano
+translate(0,0,-0.4380608753836,"Cover")
+rotatex(pi/6,"Cover")
+translate(0,0,0.4380608753836,"Cover")
